@@ -1,0 +1,12 @@
+regensucces: "&eJe hebt de regen succesvol gestart met een speed penalty"
+wrongregenusage: "&4Je moet /regen (speed) doen om een penalty te geven aan alle wagens door de regen"
+nocar: "&4Momenteel heeft je team geen auto in de garage of op de piste"
+nocontrollerblock: "&4Het controllerblock in de settings bestaat niet!"
+noteam: "Het is de bedoeling dat je in een team zit om te kunnen racen"
+notontheroad: "&4Dit kan momenteel niet dit voertuig rijdt niet op de baan maar ernaast"
+samestate: "&4Sorry, je staat al in deze state"
+
+battery:
+  alreadyfull: "&4Sorry, je kan niet verder laden je batterij is al vol"
+  emptynoboost: "&4Sorry, je kan boost modus niet aanzetten je batterij is leeg"
+  almostemptynoboost: "&4Sorry, je kan boost modus niet aanzetten je batterij is te leeg"

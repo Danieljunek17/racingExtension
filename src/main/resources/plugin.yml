@@ -1,0 +1,12 @@
+name: RacingExtras
+version: ${project.version}
+main: me.danieljunek17.racingcommission.Racingcommission
+api-version: 1.16
+load: STARTUP
+authors: [ danieljunek17 ]
+depend: [ VehiclesPlusPro ]
+
+commands:
+  admin:
+  wheels:
+  regen:

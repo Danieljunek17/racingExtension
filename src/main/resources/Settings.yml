@@ -1,0 +1,72 @@
+teams:
+  #first one is the team that manages all other teams!
+  #every permission must start with 'team.[name]'
+  0: 'team.admin'
+  1: 'team.red'
+  2: 'team.[name]'
+
+settings:
+  #charge is used in %
+  #speed is applied while setting active
+  #!! speed can't have commas !!
+  batterij:
+    charging:
+      material: red_wool
+      displayname: "off"
+      charge: +10
+      speed: -4
+    standard:
+      material: yellow_wool
+      displayname: "standard"
+      charge: 0
+      speed: 0
+    boost:
+      material: green_wool
+      displayname: "boost"
+      charge: -15
+      speed: +8
+  fuel:
+    economical:
+      material: red_wool
+      displayname: "economical"
+      fuelUsage: -1
+      speed: -4
+    balance:
+      material: yellow_wool
+      displayname: "balanced"
+      fuelUsage: 0
+      speed: 0
+    overdrive:
+      material: green_wool
+      displayname: "overdrive"
+      fuelUsage: +1.5
+      speed: +6
+  speedlimit:
+    gravel: 40
+    cobblestone: 80
+  wheels:
+    soft:
+      material: coal_ore
+      displayname: "soft"
+      durability: 100
+      speed: +6
+    medium:
+      material: iron_ore
+      displayname: "medium"
+      durability: 150
+      speed: +2
+    hard:
+      material: gold_ore
+      displayname: "hard"
+      durability: 200
+      speed: -2
+    bridgestone:
+      material: redstone_ore
+      displayname: "bridgestone"
+      durability: 250
+      speed: -6
+  brokenspeed: 30
+
+
+  ControllerBlock: NETHER_QUARTZ_ORE
+  PitstopWheelChangeBlock: netherrack
