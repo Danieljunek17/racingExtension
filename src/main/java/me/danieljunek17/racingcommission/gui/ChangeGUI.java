@@ -6,6 +6,7 @@ import de.themoep.inventorygui.StaticGuiElement;
 import me.danieljunek17.racingcommission.Racingcommission;
 import me.danieljunek17.racingcommission.objects.VehicleData;
 import me.danieljunek17.racingcommission.objects.WheelsData;
+import me.danieljunek17.racingcommission.utils.Messages;
 import me.danieljunek17.racingcommission.utils.Utils;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryAction;
@@ -32,6 +33,9 @@ public class ChangeGUI {
                     String lore = click.getEvent().getCursor().getItemMeta().getLore().get(0);
                     String numberedlore = lore.replaceAll("\\D+","");
                     String durabilitystring = numberedlore.substring(0, numberedlore.length() - String.valueOf(wheelsData.getMaxDurability()).length());
+                    if(vehicleData.getStorageVehicle().getVehicleStats().getSpeed() != 0) {
+                        click.getWhoClicked().sendMessage(Messages.DRIVINGWHENWHEELCHANGE.getMessage());
+                    }
                     if(lore.startsWith("Durability: ") && !durabilitystring.equals("0")) {
                         vehicleData.setWheelsItem(click.getEvent().getCursor().clone());
                         vehicleData.setWheelsData(wheelsData);

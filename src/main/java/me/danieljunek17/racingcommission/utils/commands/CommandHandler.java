@@ -22,8 +22,7 @@ public class CommandHandler implements CommandExecutor{
     public CommandHandler() {
         command.addAll(Arrays.asList(
                 new Wheels(),
-                new Admin(),
-                new Rain()
+                new Admin()
         ));
     }
 

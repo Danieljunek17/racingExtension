@@ -4,7 +4,8 @@ import me.danieljunek17.racingcommission.Racingcommission;
 
 public enum Messages {
 
-    RAINSUCCES(""),
+    RAINSUCCES("regensucces"),
+    DRIVINGWHENWHEELCHANGE("wheelchangeondrive"),
     WRONGRAINUSAGE("wrongregenusage"),
     NOCAR("nocar"),
     NOCONTROLLERBLOCK("nocontrollerblock"),
