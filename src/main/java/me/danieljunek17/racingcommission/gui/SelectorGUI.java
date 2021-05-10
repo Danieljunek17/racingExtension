@@ -1,15 +1,11 @@
 package me.danieljunek17.racingcommission.gui;
 
-import de.themoep.inventorygui.DynamicGuiElement;
 import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
 import me.danieljunek17.racingcommission.Racingcommission;
 import me.danieljunek17.racingcommission.objects.VehicleData;
-import me.danieljunek17.racingcommission.objects.WheelsData;
 import me.danieljunek17.racingcommission.utils.Utils;
 import org.bukkit.Material;
-import org.bukkit.event.inventory.InventoryAction;
-import org.bukkit.inventory.ItemStack;
 
 public class SelectorGUI {
 

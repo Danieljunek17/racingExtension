@@ -3,7 +3,6 @@ package me.danieljunek17.racingcommission.commands;
 import me.danieljunek17.racingcommission.objects.Team;
 import me.danieljunek17.racingcommission.objects.VehicleData;
 import me.danieljunek17.racingcommission.utils.Messages;
-import me.danieljunek17.racingcommission.utils.commands.Commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,7 +20,8 @@ public class Rain implements CommandExecutor {
         player.getWorld().setStorm(true);
         for(Team team : Team.Manager.teamdata) {
             for(VehicleData vehicleData : team.getVehicleDataList()) {
-                vehicleData.getStorageVehicle().getVehicleStats().setSpeed(vehicleData.getCachespeed() + Integer.parseInt(regen) + vehicleData.getFuelboost() + vehicleData.getBatteryboost() + vehicleData.getWheelboost());
+                vehicleData.setRegenpenalty(Integer.parseInt(regen));
+                vehicleData.getStorageVehicle().getVehicleStats().setSpeed(vehicleData.getCachespeed() + vehicleData.getRegenpenalty() + vehicleData.getFuelboost() + vehicleData.getBatteryboost() + vehicleData.getWheelboost());
             }
         }
         player.sendMessage(Messages.RAINSUCCES.getMessage());

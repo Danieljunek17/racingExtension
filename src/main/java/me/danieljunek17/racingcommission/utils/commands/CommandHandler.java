@@ -2,7 +2,6 @@ package me.danieljunek17.racingcommission.utils.commands;
 
 import me.danieljunek17.racingcommission.Racingcommission;
 import me.danieljunek17.racingcommission.commands.Admin;
-import me.danieljunek17.racingcommission.commands.Rain;
 import me.danieljunek17.racingcommission.commands.Wheels;
 import me.danieljunek17.racingcommission.utils.commands.subcommands.SubCommandHandler;
 import org.bukkit.Bukkit;

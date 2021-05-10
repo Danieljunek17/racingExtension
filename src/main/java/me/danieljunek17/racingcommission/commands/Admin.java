@@ -1,7 +1,6 @@
 package me.danieljunek17.racingcommission.commands;
 
-import me.danieljunek17.racingcommission.gui.AdminGUI;
-import me.danieljunek17.racingcommission.gui.MainGUI;
+import me.danieljunek17.racingcommission.gui.AdminSelectGUI;
 import me.danieljunek17.racingcommission.utils.commands.Commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -17,7 +16,7 @@ public class Admin extends Commands {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(!(sender instanceof Player)) return false;
         Player player = ((Player) sender).getPlayer();
-        AdminGUI.AdminMenu(player);
+        AdminSelectGUI.AdminSelectMenu(player);
         return false;
     }
 }

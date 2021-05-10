@@ -2,7 +2,6 @@ package me.danieljunek17.racingcommission.objects;
 
 import org.bukkit.Material;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;

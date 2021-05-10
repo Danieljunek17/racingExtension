@@ -3,16 +3,15 @@ package me.danieljunek17.racingcommission.events;
 import me.danieljunek17.racingcommission.Racingcommission;
 import me.danieljunek17.racingcommission.gui.MainGUI;
 import me.danieljunek17.racingcommission.gui.PreChangeGUI;
-import me.danieljunek17.racingcommission.gui.WheelsGUI;
 import me.danieljunek17.racingcommission.objects.Team;
 import me.danieljunek17.racingcommission.utils.Messages;
-import me.danieljunek17.racingcommission.utils.Utils;
 import me.danieljunek17.racingcommission.utils.YAMLFile;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
@@ -22,6 +21,10 @@ public class PlayerInteractListener implements Listener {
 
     @EventHandler
     public void playerInteractEvent(PlayerInteractEvent event) {
+        if (event.getAction().equals(Action.PHYSICAL)) {
+            return;
+        }
+        if (event.getHand() == null) return;
         if (event.getHand().equals(EquipmentSlot.HAND)) {
             Player player = event.getPlayer();
             if(event.getClickedBlock() == null) return;

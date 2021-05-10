@@ -33,8 +33,9 @@ public class ChangeGUI {
                     String lore = click.getEvent().getCursor().getItemMeta().getLore().get(0);
                     String numberedlore = lore.replaceAll("\\D+","");
                     String durabilitystring = numberedlore.substring(0, numberedlore.length() - String.valueOf(wheelsData.getMaxDurability()).length());
-                    if(vehicleData.getStorageVehicle().getVehicleStats().getSpeed() != 0) {
+                    if(vehicleData.getStorageVehicle().getVehicleStats().getCurrentSpeed() != 0) {
                         click.getWhoClicked().sendMessage(Messages.DRIVINGWHENWHEELCHANGE.getMessage());
+                        return true;
                     }
                     if(lore.startsWith("Durability: ") && !durabilitystring.equals("0")) {
                         vehicleData.setWheelsItem(click.getEvent().getCursor().clone());
@@ -49,6 +50,10 @@ public class ChangeGUI {
                 return true;
             }
             if(click.getEvent().getAction() == InventoryAction.PICKUP_ALL || click.getEvent().getAction() == InventoryAction.PICKUP_HALF) {
+                if(vehicleData.getStorageVehicle().getVehicleStats().getCurrentSpeed() != 0) {
+                    click.getWhoClicked().sendMessage(Messages.DRIVINGWHENWHEELCHANGE.getMessage());
+                    return true;
+                }
                 vehicleData.setWheelsItem(new ItemStack(Material.AIR));
                 vehicleData.setWheelsData(null);
                 vehicleData.getStorageVehicle().getVehicleStats().setSpeed(vehicleData.getCachespeed() + vehicleData.getBatteryboost() + vehicleData.getFuelboost());

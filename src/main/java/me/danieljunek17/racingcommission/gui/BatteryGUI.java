@@ -25,7 +25,7 @@ public class BatteryGUI {
         InventoryGui gui = new InventoryGui(Racingcommission.getInstance(), Utils.color("&cRace Computer Manager"), guiSetup);
         gui.setFiller(Utils.createItem(Material.GRAY_STAINED_GLASS_PANE, 1, true, 0, ""));
         gui.addElement(new DynamicGuiElement('I', (viewer) -> {
-            return new StaticGuiElement('I', Utils.createItem(Material.BOOK, 1, true, 0,"&4INFO" , "&cBatterij: " + vehicleData.getBatteryPercentage()));
+            return new StaticGuiElement('I', Utils.createItem(Material.BOOK, 1, true, 0,"&4INFO" , "&cBatterij: " + Racingcommission.df.format(vehicleData.getBatteryPercentage())));
         }));
 
         VehicleStats vehicleStats = vehicleData.getStorageVehicle().getVehicleStats();

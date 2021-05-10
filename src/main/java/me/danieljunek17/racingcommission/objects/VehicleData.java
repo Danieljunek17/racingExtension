@@ -9,12 +9,7 @@ import me.danieljunek17.racingcommission.gui.SelectorGUI;
 import me.danieljunek17.racingcommission.utils.YAMLFile;
 import me.legofreak107.vehiclesplus.vehicles.vehicles.objects.BaseVehicle;
 import me.legofreak107.vehiclesplus.vehicles.vehicles.objects.StorageVehicle;
-import org.bukkit.Material;
-import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class VehicleData {
 
@@ -24,7 +19,7 @@ public class VehicleData {
     private StorageVehicle storageVehicle;
     private BatteryState batteryState;
     private FuelState fuelState;
-    private int savedspeed, cachespeed, batteryboost, fuelboost, wheelboost;
+    private int savedspeed, cachespeed, batteryboost, fuelboost, wheelboost, regenpenalty;
     private double batteryPercentage;
     private InventoryGui batteryMenu, fuelMenu, selectorMenu, changeMenu;
     private boolean offgrid;
@@ -46,6 +41,7 @@ public class VehicleData {
         this.fuelboost = 0;
         this.batteryboost = 0;
         this.wheelboost = 0;
+        this.regenpenalty = 0;
         this.wheelsItem = wheelsItem;
         this.wheelsData = wheelsData;
     }
@@ -120,7 +116,7 @@ public class VehicleData {
 
     public void disableOffGrid() {
         this.offgrid = false;
-        getStorageVehicle().getVehicleStats().setSpeed(getCachespeed());
+        getStorageVehicle().getVehicleStats().setSpeed(getCachespeed() + getRegenpenalty());
     }
 
     public void setSavedspeed(int savedspeed) {
@@ -135,6 +131,14 @@ public class VehicleData {
 
     public void setCachespeed(int cachespeed) {
         this.cachespeed = cachespeed;
+    }
+
+    public int getRegenpenalty() {
+        return regenpenalty;
+    }
+
+    public void setRegenpenalty(int regenpenalty) {
+        this.regenpenalty = regenpenalty;
     }
 
     public int getBatteryboost() {

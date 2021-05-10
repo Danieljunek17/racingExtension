@@ -17,9 +17,6 @@ import me.legofreak107.vehiclesplus.vehicles.vehicles.objects.VehicleStats;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.configuration.Configuration;
-import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
@@ -28,9 +25,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Map;
 import java.util.UUID;
 
 public final class Racingcommission extends JavaPlugin {
@@ -263,4 +260,6 @@ public final class Racingcommission extends JavaPlugin {
     public static YAMLFile getDataFile() {
         return data;
     }
+
+    public static DecimalFormat df = new DecimalFormat("0.00");
 }

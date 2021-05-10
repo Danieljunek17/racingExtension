@@ -5,7 +5,6 @@ import de.themoep.inventorygui.GuiElementGroup;
 import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
 import me.danieljunek17.racingcommission.Racingcommission;
-import me.danieljunek17.racingcommission.objects.BatteryState;
 import me.danieljunek17.racingcommission.objects.FuelState;
 import me.danieljunek17.racingcommission.objects.VehicleData;
 import me.danieljunek17.racingcommission.utils.Messages;
@@ -28,7 +27,7 @@ public class FuelGUI {
         InventoryGui gui = new InventoryGui(Racingcommission.getInstance(), Utils.color("&cRace Computer Manager"), guiSetup);
         gui.setFiller(Utils.createItem(Material.GRAY_STAINED_GLASS_PANE, 1, true, 0, ""));
         gui.addElement(new DynamicGuiElement('I', (viewer) -> {
-            return new StaticGuiElement('I', Utils.createItem(Material.BOOK, 1, true, 0,"&4INFO" , "&cFuel: " + vehicleData.getBatteryPercentage()));
+            return new StaticGuiElement('I', Utils.createItem(Material.BOOK, 1, true, 0,"&4INFO" , "&cFuel: " + Racingcommission.df.format(vehicleData.getStorageVehicle().getVehicleStats().getCurrentFuel()) + "L"));
         }));
 
         VehicleStats vehicleStats = vehicleData.getStorageVehicle().getVehicleStats();
