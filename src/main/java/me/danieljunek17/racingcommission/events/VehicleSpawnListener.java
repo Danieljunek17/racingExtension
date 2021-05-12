@@ -7,6 +7,7 @@ import me.danieljunek17.racingcommission.utils.YAMLFile;
 import me.legofreak107.vehiclesplus.vehicles.api.events.VehicleDestroyEvent;
 import me.legofreak107.vehiclesplus.vehicles.api.events.VehicleSpawnedEvent;
 import me.legofreak107.vehiclesplus.vehicles.vehicles.objects.SpawnedVehicle;
+import me.legofreak107.vehiclesplus.vehicles.vehicles.objects.addons.seats.Seat;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;

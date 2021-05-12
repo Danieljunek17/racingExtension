@@ -45,7 +45,7 @@ public class FuelGUI {
                     return true;
                 }
                 vehicleData.getBaseVehicle().getFuelSettings().setUsage(vehicleData.getBaseVehicle().getFuelSettings().getUsage() + fuelState.getUsage());
-                vehicleStats.setSpeed(vehicleData.getCachespeed() + fuelState.getSpeed() + vehicleData.getBatteryboost() + vehicleData.getWheelboost());
+                vehicleStats.setSpeed(vehicleData.getCachespeed() + vehicleData.getRegenpenalty() + fuelState.getSpeed() + vehicleData.getBatteryboost() + vehicleData.getWheelboost());
                 vehicleData.setFuelboost(fuelState.getSpeed());
                 vehicleData.setFuelState(fuelState);
                 return true;

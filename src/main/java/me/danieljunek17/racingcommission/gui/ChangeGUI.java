@@ -41,7 +41,7 @@ public class ChangeGUI {
                         vehicleData.setWheelsItem(click.getEvent().getCursor().clone());
                         vehicleData.setWheelsData(wheelsData);
                         vehicleData.setWheelboost(wheelsData.getSpeed());
-                        vehicleData.getStorageVehicle().getVehicleStats().setSpeed(vehicleData.getCachespeed() + wheelsData.getSpeed() + vehicleData.getBatteryboost() + vehicleData.getFuelboost());
+                        vehicleData.getStorageVehicle().getVehicleStats().setSpeed(vehicleData.getCachespeed() + vehicleData.getRegenpenalty() + wheelsData.getSpeed() + vehicleData.getBatteryboost() + vehicleData.getFuelboost());
                         return false;
                     } else {
                         return true;
@@ -56,7 +56,7 @@ public class ChangeGUI {
                 }
                 vehicleData.setWheelsItem(new ItemStack(Material.AIR));
                 vehicleData.setWheelsData(null);
-                vehicleData.getStorageVehicle().getVehicleStats().setSpeed(vehicleData.getCachespeed() + vehicleData.getBatteryboost() + vehicleData.getFuelboost());
+                vehicleData.getStorageVehicle().getVehicleStats().setSpeed(vehicleData.getCachespeed() + vehicleData.getRegenpenalty() + vehicleData.getBatteryboost() + vehicleData.getFuelboost());
                 return false;
             }
             return true;

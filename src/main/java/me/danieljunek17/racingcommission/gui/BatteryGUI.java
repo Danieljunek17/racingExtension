@@ -54,7 +54,7 @@ public class BatteryGUI {
                     click.getWhoClicked().sendMessage(Messages.BATTERYALMOSTEMPTYNOBOOST.getMessage());
                     return true;
                 }
-                vehicleStats.setSpeed(vehicleData.getCachespeed() + batteryState.getSpeed() + vehicleData.getFuelboost() + vehicleData.getWheelboost());
+                vehicleStats.setSpeed(vehicleData.getCachespeed() + vehicleData.getRegenpenalty() + batteryState.getSpeed() + vehicleData.getFuelboost() + vehicleData.getWheelboost());
                 vehicleData.setBatteryState(batteryState);
                 return true;
             })));
