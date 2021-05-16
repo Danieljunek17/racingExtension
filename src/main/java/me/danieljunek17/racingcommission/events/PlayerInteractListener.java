@@ -30,16 +30,15 @@ public class PlayerInteractListener implements Listener {
             if(event.getClickedBlock() == null) return;
             Material material = event.getClickedBlock().getType();
 
-            try {
-                settings.getString("settings.ControllerBlock").toUpperCase();
-            } catch (NullPointerException exception) {
+            if(!settings.contains("settings.ControllerBlock")) {
                 Bukkit.getConsoleSender().sendMessage(Messages.NOCONTROLLERBLOCK.getMessage());
                 return;
             }
+
             if(Material.valueOf(settings.getString("settings.ControllerBlock").toUpperCase()) == material) {
                 for (Team team : Team.Manager.teamdata) {
                     if (player.hasPermission(team.getPermission())) {
-                        if (team.getVehicleDataList().isEmpty()) {
+                        if (team.getVehicleDataList().size() == 0) {
                             player.sendMessage(Messages.NOCAR.getMessage());
                             return;
                         } else {
@@ -51,7 +50,7 @@ public class PlayerInteractListener implements Listener {
             } else if(Material.valueOf(settings.getString("settings.PitstopWheelChangeBlock").toUpperCase()) == material) {
                 for (Team team : Team.Manager.teamdata) {
                     if (player.hasPermission(team.getPermission())) {
-                        if (team.getVehicleDataList().isEmpty()) {
+                        if (team.getVehicleDataList().size() == 0) {
                             player.sendMessage(Messages.NOCAR.getMessage());
                             return;
                         } else {

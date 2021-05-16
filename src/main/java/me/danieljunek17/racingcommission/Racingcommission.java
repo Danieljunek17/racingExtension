@@ -1,5 +1,6 @@
 package me.danieljunek17.racingcommission;
 
+import me.danieljunek17.racingcommission.commands.Admin;
 import me.danieljunek17.racingcommission.commands.Rain;
 import me.danieljunek17.racingcommission.events.PlayerInteractListener;
 import me.danieljunek17.racingcommission.events.VehicleEnterListener;
@@ -46,6 +47,7 @@ public final class Racingcommission extends JavaPlugin {
         commandHandler.registerCommands();
 
         getCommand("regen").setExecutor(new Rain());
+        getCommand("admin").setExecutor(new Admin());
 
         Bukkit.getPluginManager().registerEvents(new VehicleSpawnListener(), instance);
         Bukkit.getPluginManager().registerEvents(new VehicleEnterListener(), instance);
@@ -54,8 +56,8 @@ public final class Racingcommission extends JavaPlugin {
 
         reloadVehicles();
         runBatteryDrain();
-        checkBlocksUnderVehicle();
         runWheelWorn();
+        checkBlocksUnderVehicle();
     }
 
     @Override
@@ -153,24 +155,36 @@ public final class Racingcommission extends JavaPlugin {
         try {
             for (ArmorStand stand : VehiclesPlus.getVehicleManager().getHolderStands()) {
                 SpawnedVehicle spawnedVehicle = (SpawnedVehicle) stand.getMetadata(NBTDataType.VEHICLE_BASE.name()).get(0).value();
-                for (Team team : Team.Manager.teamdata) {
-                    Player player = Bukkit.getPlayer(UUID.fromString(spawnedVehicle.getStorageVehicle().getOwner()));
+                Player player = Bukkit.getPlayer(UUID.fromString(spawnedVehicle.getStorageVehicle().getOwner()));
+                Vector location = spawnedVehicle.getStorageVehicle().getLocation();
+                Location location1 = new Location(player.getWorld(), location.getBlockX(), (location.getBlockY() - 1), location.getBlockZ());
+                boolean offgrid = SpeedLimitData.Manager.speedLimits.containsKey(location1.getBlock().getType());
 
-                    Vector location = spawnedVehicle.getStorageVehicle().getLocation();
-                    Location location1 = new Location(player.getWorld(), location.getBlockX(), (location.getBlockY() - 1), location.getBlockZ());
-
-                    boolean offgrid = SpeedLimitData.Manager.speedLimits.containsKey(location1.getBlock().getType());
-                    if ((player.hasPermission(team.getPermission()) && !player.hasPermission(Team.Manager.teamdata.get(0).getPermission())) || (player.hasPermission(team.getPermission()) && team.getPermission().equals(Team.Manager.teamdata.get(0).getPermission()))) {
-                        VehicleData vehicleData;
-                        if(!data.contains(spawnedVehicle.getStorageVehicle().getUuid() + ".wheelData")) {
-                            vehicleData = new VehicleData(spawnedVehicle.getBaseVehicle(), spawnedVehicle.getStorageVehicle(), data.getInt(spawnedVehicle.getStorageVehicle().getUuid() + ".speed"), new ItemStack(Material.AIR), null);
-                        } else {
-                            vehicleData = new VehicleData(spawnedVehicle.getBaseVehicle(), spawnedVehicle.getStorageVehicle(), data.getInt(spawnedVehicle.getStorageVehicle().getUuid() + ".speed"), data.getItemStack(spawnedVehicle.getStorageVehicle().getUuid() + ".wheelItem"), (WheelsData) data.get(spawnedVehicle.getStorageVehicle().getUuid() + ".wheelData"));
+                if(data.contains(spawnedVehicle.getStorageVehicle().getUuid() + ".team")) {
+                    VehicleData vehicleData;
+                    if (!data.contains(spawnedVehicle.getStorageVehicle().getUuid() + ".wheelData")) {
+                        vehicleData = new VehicleData(spawnedVehicle.getBaseVehicle(), spawnedVehicle.getStorageVehicle(), data.getInt(spawnedVehicle.getStorageVehicle().getUuid() + ".speed"), new ItemStack(Material.AIR), null);
+                    } else {
+                        vehicleData = new VehicleData(spawnedVehicle.getBaseVehicle(), spawnedVehicle.getStorageVehicle(), data.getInt(spawnedVehicle.getStorageVehicle().getUuid() + ".speed"), data.getItemStack(spawnedVehicle.getStorageVehicle().getUuid() + ".wheelItem"), (WheelsData) data.get(spawnedVehicle.getStorageVehicle().getUuid() + ".wheelData"));
+                    }
+                    vehicleData.setOffgrid(offgrid, SpeedLimitData.Manager.speedLimits.get(location1.getBlock().getType()));
+                    Bukkit.getConsoleSender().sendMessage(String.valueOf(vehicleData.getWheelboost()));
+                    vehicleData.getStorageVehicle().getVehicleStats().setSpeed(vehicleData.getCachespeed() + vehicleData.getWheelboost());
+                    Team.Manager.getTeamByName(data.getString(spawnedVehicle.getStorageVehicle().getUuid() + ".team")).join().getVehicleDataList().add(vehicleData);
+                } else {
+                    for (Team team : Team.Manager.teamdata) {
+                        if ((player.hasPermission(team.getPermission()) && !player.hasPermission(Team.Manager.teamdata.get(0).getPermission())) || (player.hasPermission(team.getPermission()) && team.getPermission().equals(Team.Manager.teamdata.get(0).getPermission()))) {
+                            VehicleData vehicleData;
+                            if (!data.contains(spawnedVehicle.getStorageVehicle().getUuid() + ".wheelData")) {
+                                vehicleData = new VehicleData(spawnedVehicle.getBaseVehicle(), spawnedVehicle.getStorageVehicle(), data.getInt(spawnedVehicle.getStorageVehicle().getUuid() + ".speed"), new ItemStack(Material.AIR), null);
+                            } else {
+                                vehicleData = new VehicleData(spawnedVehicle.getBaseVehicle(), spawnedVehicle.getStorageVehicle(), data.getInt(spawnedVehicle.getStorageVehicle().getUuid() + ".speed"), data.getItemStack(spawnedVehicle.getStorageVehicle().getUuid() + ".wheelItem"), (WheelsData) data.get(spawnedVehicle.getStorageVehicle().getUuid() + ".wheelData"));
+                            }
+                            vehicleData.setOffgrid(offgrid, SpeedLimitData.Manager.speedLimits.get(location1.getBlock().getType()));
+                            Bukkit.getConsoleSender().sendMessage(String.valueOf(vehicleData.getWheelboost()));
+                            vehicleData.getStorageVehicle().getVehicleStats().setSpeed(vehicleData.getCachespeed() + vehicleData.getWheelboost());
+                            team.getVehicleDataList().add(vehicleData);
                         }
-                        vehicleData.setOffgrid(offgrid, SpeedLimitData.Manager.speedLimits.get(location1.getBlock().getType()));
-                        Bukkit.getConsoleSender().sendMessage(String.valueOf(vehicleData.getWheelboost()));
-                        vehicleData.getStorageVehicle().getVehicleStats().setSpeed(vehicleData.getCachespeed() + vehicleData.getWheelboost());
-                        team.getVehicleDataList().add(vehicleData);
                     }
                 }
             }
@@ -231,6 +245,7 @@ public final class Racingcommission extends JavaPlugin {
                 for (VehicleData vehicleData : team.getVehicleDataList()) {
                     Vector vector = vehicleData.getStorageVehicle().getLocation();
                     Player owner = Bukkit.getPlayer(UUID.fromString(vehicleData.getStorageVehicle().getOwner()));
+                    if(owner == null) continue;
                     Material material = new Location(owner.getWorld(), vector.getBlockX(), vector.getBlockY() - 1, vector.getBlockZ()).getBlock().getType();
                     if(SpeedLimitData.Manager.speedLimits.containsKey(material)) {
                         SpeedLimitData speedLimitData = SpeedLimitData.Manager.speedLimits.get(material);

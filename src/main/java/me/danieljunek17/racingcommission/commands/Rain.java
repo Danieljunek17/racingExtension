@@ -13,7 +13,7 @@ public class Rain implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(!(sender instanceof Player)) return false;
         Player player = ((Player) sender).getPlayer();
-        if(!(player.hasPermission("admin.regen"))) return false;
+        if(!(player.hasPermission("racemenu.admin.regen"))) return false;
         String regen = args[0];
         if(regen.isEmpty() || !regen.contains("\\d+")) {
             player.sendMessage(Messages.WRONGRAINUSAGE.getMessage());

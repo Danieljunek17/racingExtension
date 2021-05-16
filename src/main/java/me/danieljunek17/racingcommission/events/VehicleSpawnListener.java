@@ -22,6 +22,7 @@ import java.util.UUID;
 public class VehicleSpawnListener implements Listener {
 
     private YAMLFile data = Racingcommission.getDataFile();
+    private YAMLFile settings = Racingcommission.getSettings();
 
     @EventHandler
     public void vehicleSpawnEvent(VehicleSpawnedEvent event) {
@@ -38,6 +39,9 @@ public class VehicleSpawnListener implements Listener {
             if (player.hasPermission(team.getPermission())) {
                 ItemStack wheelsItem = new ItemStack(Material.AIR);
                 WheelsData wheelsData = null;
+                if(!data.contains(vehicle.getStorageVehicle().getUuid() + ".team")) {
+                    data.set(vehicle.getStorageVehicle().getUuid() + ".team", team.getName());
+                }
                 if(data.contains(vehicle.getStorageVehicle().getUuid() + ".wheelItem")) {
                     wheelsItem = data.getItemStack(vehicle.getStorageVehicle().getUuid() + ".wheelItem");
                 }
@@ -46,6 +50,10 @@ public class VehicleSpawnListener implements Listener {
                 }
                 VehicleData vehicleData = new VehicleData(vehicle.getBaseVehicle(), vehicle.getStorageVehicle(), vehicle.getStorageVehicle().getVehicleStats().getSpeed(), wheelsItem, wheelsData);
                 vehicleData.setSavedspeed(vehicle.getStorageVehicle().getVehicleStats().getSpeed());
+                if(!data.contains(vehicle.getStorageVehicle().getUuid() + ".wheelData")) {
+                    Bukkit.broadcastMessage(String.valueOf(settings.getInt("settings.brokenspeed")));
+                    vehicle.getStorageVehicle().getVehicleStats().setSpeed(settings.getInt("settings.brokenspeed"));
+                }
                 vehicleData.setOffgrid(offgrid, SpeedLimitData.Manager.speedLimits.get(location1.getBlock().getType()));
                 team.getVehicleDataList().add(vehicleData);
                 return;
@@ -59,6 +67,7 @@ public class VehicleSpawnListener implements Listener {
         SpawnedVehicle vehicle = event.getVehicle();
 
         Player player = Bukkit.getPlayer(UUID.fromString(vehicle.getStorageVehicle().getOwner()));
+        assert player != null;
 
         for(Team team: Team.Manager.teamdata) {
             if(player.hasPermission(team.getPermission())) {

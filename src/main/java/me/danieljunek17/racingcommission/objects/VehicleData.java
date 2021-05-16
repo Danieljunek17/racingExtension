@@ -116,7 +116,7 @@ public class VehicleData {
 
     public void disableOffGrid() {
         this.offgrid = false;
-        getStorageVehicle().getVehicleStats().setSpeed(getCachespeed() + getRegenpenalty());
+        getStorageVehicle().getVehicleStats().setSpeed(getBatteryboost() + getFuelboost() + getRegenpenalty() + getWheelboost());
     }
 
     public void setSavedspeed(int savedspeed) {

@@ -38,7 +38,7 @@ public class Team {
             teamdata.add(team);
         }
         public static CompletableFuture<Team> getTeamByName(String name) {
-            return CompletableFuture.supplyAsync(() -> teamdata.stream().filter(team -> team.getName().equals(name)).findFirst().orElse(null));
+            return CompletableFuture.supplyAsync(() -> teamdata.stream().filter(team -> team.getName().equalsIgnoreCase(name)).findFirst().orElse(null));
         }
     }
 
