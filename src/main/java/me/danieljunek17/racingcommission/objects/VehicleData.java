@@ -19,7 +19,7 @@ public class VehicleData {
     private StorageVehicle storageVehicle;
     private BatteryState batteryState;
     private FuelState fuelState;
-    private int savedspeed, cachespeed, batteryboost, fuelboost, wheelboost, regenpenalty;
+    private int savedspeed, cachespeed, batteryboost, fuelboost, wheelboost, regenpenalty, lockedspeed;
     private double batteryPercentage;
     private InventoryGui batteryMenu, fuelMenu, selectorMenu, changeMenu;
     private boolean offgrid;
@@ -35,7 +35,7 @@ public class VehicleData {
         this.batteryMenu = BatteryGUI.batteryMenu(this);
         this.fuelMenu = FuelGUI.fuelMenu(this);
         this.selectorMenu = SelectorGUI.selectorMenu(this);
-        this.changeMenu = ChangeGUI.changeMenu(this);
+        this.changeMenu = ChangeGUI.changeMenu(Team.Manager.getTeamByVehicle(this).join(), this);
         this.savedspeed = savedspeed;
         this.cachespeed = savedspeed;
         this.fuelboost = 0;
@@ -44,6 +44,7 @@ public class VehicleData {
         this.regenpenalty = 0;
         this.wheelsItem = wheelsItem;
         this.wheelsData = wheelsData;
+        this.lockedspeed = 0;
     }
 
     public BaseVehicle getBaseVehicle() {
@@ -82,6 +83,14 @@ public class VehicleData {
         }
     }
 
+    public int getLockedspeed() {
+        return lockedspeed;
+    }
+
+    public void setLockedspeed(int lockedspeed) {
+        this.lockedspeed = lockedspeed;
+    }
+
     public InventoryGui getBatteryMenu() {
         return batteryMenu;
     }
@@ -116,7 +125,7 @@ public class VehicleData {
 
     public void disableOffGrid() {
         this.offgrid = false;
-        getStorageVehicle().getVehicleStats().setSpeed(getBatteryboost() + getFuelboost() + getRegenpenalty() + getWheelboost());
+        getStorageVehicle().getVehicleStats().setSpeed(getCachespeed() + getBatteryboost() + getFuelboost() + getRegenpenalty() + getWheelboost());
     }
 
     public void setSavedspeed(int savedspeed) {
@@ -134,7 +143,11 @@ public class VehicleData {
     }
 
     public int getRegenpenalty() {
-        return regenpenalty;
+        if(!wheelsData.isRegenband()) {
+            return regenpenalty;
+        } else {
+            return 0;
+        }
     }
 
     public void setRegenpenalty(int regenpenalty) {

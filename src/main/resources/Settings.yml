@@ -1,3 +1,9 @@
+#/admin [racemenu.admin]
+#/admin setteam (team) [racemenu.admin.setteam]
+#/admin lockedspeed (speed) [racemenu.admin.lockedspeeed]
+#/regen (regenpenalty) [racemenu.regen]
+#/wheels get [racemenu.wheels.get]#
+
 teams:
   #first one is the team that manages all other teams!
   #every permission must start with 'team.[name]'
@@ -50,21 +56,25 @@ settings:
       displayname: "soft"
       durability: 100
       speed: +6
+      regen: false
     medium:
       material: iron_ore
       displayname: "medium"
       durability: 150
       speed: +2
+      regen: false
     hard:
       material: gold_ore
       displayname: "hard"
       durability: 200
       speed: -2
+      regen: true
     bridgestone:
       material: redstone_ore
       displayname: "bridgestone"
       durability: 250
       speed: -6
+      regen: true
   brokenspeed: 30
 
 

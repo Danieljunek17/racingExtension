@@ -51,7 +51,6 @@ public class VehicleSpawnListener implements Listener {
                 VehicleData vehicleData = new VehicleData(vehicle.getBaseVehicle(), vehicle.getStorageVehicle(), vehicle.getStorageVehicle().getVehicleStats().getSpeed(), wheelsItem, wheelsData);
                 vehicleData.setSavedspeed(vehicle.getStorageVehicle().getVehicleStats().getSpeed());
                 if(!data.contains(vehicle.getStorageVehicle().getUuid() + ".wheelData")) {
-                    Bukkit.broadcastMessage(String.valueOf(settings.getInt("settings.brokenspeed")));
                     vehicle.getStorageVehicle().getVehicleStats().setSpeed(settings.getInt("settings.brokenspeed"));
                 }
                 vehicleData.setOffgrid(offgrid, SpeedLimitData.Manager.speedLimits.get(location1.getBlock().getType()));

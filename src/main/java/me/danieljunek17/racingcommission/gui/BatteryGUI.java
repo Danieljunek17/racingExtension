@@ -34,6 +34,10 @@ public class BatteryGUI {
         for (BatteryState batteryState : BatteryState.Manager.batteryStates.values()) {
             ItemStack vehicleItem = Utils.createItem(batteryState.getMaterial(), 1, true, 0, batteryState.getDisplayName());
             group.addElement((new StaticGuiElement('S', vehicleItem, click -> {
+                if(vehicleData.getLockedspeed() != 0) {
+                    click.getWhoClicked().sendMessage(Utils.color("&cMomenteel gaat dit niet, er is een geliliteerde snelheid opgesteld"));
+                    return true;
+                }
                 if(vehicleData.isOffgrid()) {
                     click.getWhoClicked().sendMessage(Messages.NOTONTHEROAD.getMessage());
                     return true;

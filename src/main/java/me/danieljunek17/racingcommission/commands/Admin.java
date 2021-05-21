@@ -13,6 +13,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.concurrent.locks.Lock;
+
 public class Admin implements CommandExecutor {
 
     private YAMLFile data = Racingcommission.getDataFile();
@@ -23,7 +25,14 @@ public class Admin implements CommandExecutor {
         if(!player.hasPermission("racemenu.admin")) return false;
 
         if(args.length != 0) {
-            if(args[0].equalsIgnoreCase("setteam")) {
+            if(args[0].equalsIgnoreCase("lockspeed")) {
+                LockSpeed.lockSpeed(player, args[1]);
+                return false;
+            }else if(args[0].equalsIgnoreCase("setteam")) {
+                if(!player.hasPermission("racemenu.admin.setteam")) {
+                    player.sendMessage(Utils.color("&cje moet een getal opgeven om de speed op te limiteren"));
+                    return false;
+                }
                 if (args[1].isEmpty()) {
                     player.sendMessage(Utils.color("&cJe moet een team opgeven"));
                     return false;

@@ -13,13 +13,15 @@ public class WheelsData implements ConfigurationSerializable {
     private String displayname, name;
     private int maxdurability, speed;
     private Material material;
+    private boolean regenband;
 
-    public WheelsData(String name, String displayname, int maxdurability, int speed, String material) {
+    public WheelsData(String name, String displayname, int maxdurability, int speed, String material, boolean regenband) {
         this.name = name;
         this.displayname = displayname;
         this.maxdurability = maxdurability;
         this.speed = speed;
         this.material = Material.getMaterial(material.toUpperCase());
+        this.regenband = regenband;
     }
 
     public String getName() {
@@ -40,6 +42,10 @@ public class WheelsData implements ConfigurationSerializable {
 
     public Material getMaterial() {
         return material;
+    }
+
+    public boolean isRegenband() {
+        return regenband;
     }
 
     public static class Manager {
@@ -75,11 +81,12 @@ public class WheelsData implements ConfigurationSerializable {
         map.put("maxdurability", maxdurability);
         map.put("speed", speed);
         map.put("material", material.name());
+        map.put("regenband", regenband);
         return map;
     }
 
     public static WheelsData deserialize(Map<String, Object> map) {
-        return new WheelsData((String) map.get("name"), (String) map.get("displayname"), (Integer) map.get("maxdurability"), (Integer) map.get("speed"), (String) map.get("material"));
+        return new WheelsData((String) map.get("name"), (String) map.get("displayname"), (Integer) map.get("maxdurability"), (Integer) map.get("speed"), (String) map.get("material"), (boolean) map.get("regenband"));
     }
 
 }

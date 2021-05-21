@@ -40,6 +40,11 @@ public class Team {
         public static CompletableFuture<Team> getTeamByName(String name) {
             return CompletableFuture.supplyAsync(() -> teamdata.stream().filter(team -> team.getName().equalsIgnoreCase(name)).findFirst().orElse(null));
         }
+        public static CompletableFuture<Team> getTeamByVehicle(VehicleData vehicle) {
+            return CompletableFuture.supplyAsync(() -> teamdata.stream().filter(team ->
+                    team.getVehicleDataList().contains(vehicle))
+                    .findFirst().orElse(null));
+        }
     }
 
     @Override

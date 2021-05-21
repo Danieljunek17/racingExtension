@@ -4,17 +4,23 @@ import de.themoep.inventorygui.DynamicGuiElement;
 import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
 import me.danieljunek17.racingcommission.Racingcommission;
+import me.danieljunek17.racingcommission.objects.Team;
 import me.danieljunek17.racingcommission.objects.VehicleData;
 import me.danieljunek17.racingcommission.objects.WheelsData;
 import me.danieljunek17.racingcommission.utils.Messages;
 import me.danieljunek17.racingcommission.utils.Utils;
+import me.danieljunek17.racingcommission.utils.YAMLFile;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.inventory.ItemStack;
 
 public class ChangeGUI {
 
-    public static InventoryGui changeMenu(VehicleData vehicleData) {
+    private static YAMLFile settings = Racingcommission.getSettings();
+
+    public static InventoryGui changeMenu(Team team, VehicleData vehicleData) {
         String[] guiSetup = {
                 "         ",
                 "    B    ",
@@ -41,7 +47,14 @@ public class ChangeGUI {
                         vehicleData.setWheelsItem(click.getEvent().getCursor().clone());
                         vehicleData.setWheelsData(wheelsData);
                         vehicleData.setWheelboost(wheelsData.getSpeed());
-                        vehicleData.getStorageVehicle().getVehicleStats().setSpeed(vehicleData.getCachespeed() + vehicleData.getRegenpenalty() + wheelsData.getSpeed() + vehicleData.getBatteryboost() + vehicleData.getFuelboost());
+                        for(Player player : Bukkit.getOnlinePlayers()){
+                            if(player.hasPermission("team.admin")) {
+                                player.sendMessage(Utils.color("Het team: " + team.getName() + " heeft de banden van de auto gewisselt waarin " + vehicleData.getStorageVehicle().getName() + "zit of zat"));
+                            }
+                        }
+                        if(vehicleData.getLockedspeed() == 0) {
+                            vehicleData.getStorageVehicle().getVehicleStats().setSpeed(vehicleData.getCachespeed() + vehicleData.getRegenpenalty() + wheelsData.getSpeed() + vehicleData.getBatteryboost() + vehicleData.getFuelboost());
+                        }
                         return false;
                     } else {
                         return true;
@@ -56,7 +69,9 @@ public class ChangeGUI {
                 }
                 vehicleData.setWheelsItem(new ItemStack(Material.AIR));
                 vehicleData.setWheelsData(null);
-                vehicleData.getStorageVehicle().getVehicleStats().setSpeed(vehicleData.getCachespeed() + vehicleData.getRegenpenalty() + vehicleData.getBatteryboost() + vehicleData.getFuelboost());
+                if(vehicleData.getLockedspeed() == 0) {
+                    vehicleData.getStorageVehicle().getVehicleStats().setSpeed(settings.getInt("settings.brokenspeed"));
+                }
                 return false;
             }
             return true;

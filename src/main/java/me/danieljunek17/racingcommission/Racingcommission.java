@@ -110,7 +110,8 @@ public final class Racingcommission extends JavaPlugin {
             int speed = settings.getInt("settings.wheels." + state + ".speed");
             String displayname = settings.getString("settings.wheels." + state + ".displayname");
             String material = settings.getString("settings.wheels." + state + ".material");
-            WheelsData.Manager.newWheelsData(state, new WheelsData(state, displayname, durability, speed, material));
+            boolean regenband = settings.getBoolean("settings.wheels." + state + ".regenband");
+            WheelsData.Manager.newWheelsData(state, new WheelsData(state, displayname, durability, speed, material, regenband));
         }
 
         if(settings.getConfigurationSection("settings.batterij") == null) {
